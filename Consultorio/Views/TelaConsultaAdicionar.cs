@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Globalization;
 namespace Consultorio
 {
-    class TelaPacienteAdicionar : Tela
+    class TelaConsultaAdicionar : Tela
     {
         private Tela anterior;
 
         public string Nome { get; set; }
 
-        public TelaPacienteAdicionar(Tela anterior)
+        public TelaConsultaAdicionar(Tela anterior)
         {
             this.anterior = anterior;
-            this.Nome = " Adicionar Paciente ";
+            this.Nome = " Adicionar Consulta ";
         }
 
         public Tela Mostra()
@@ -20,7 +20,7 @@ namespace Consultorio
             Console.WriteLine(" >>> " + this.Nome + " <<<");
             Console.WriteLine();
 
-            Console.WriteLine(" INFORMAÇÕES PESSOAIS\n");
+            Console.WriteLine(" INFORMAÇÕES DA CONSULTA\n");
 
 
             // Inserir nome

@@ -22,7 +22,7 @@ namespace Consultorio
         {
             string s = this.Nome + " - ";
             s += this.Email + " - ";
-            s += this.TelefoneCelular != null ? "Cel: " + this.TelefoneCelular + " - " : this.TelefoneResidencial != null ? "Tel: " + this.TelefoneResidencial + " - " : "";
+            s += this.TelefoneCelular.Length > 0 ? "Cel: " + this.TelefoneCelular + " - " : this.TelefoneResidencial.Length > 0 ? "Tel: " + this.TelefoneResidencial + " - " : "";
             s += "Nascimento: " + this.DataNascimento.ToString("dd/MM/yyyy") + " - ";
             s += "Cadastro Em: " + this.DataRegistro.ToString();
 
