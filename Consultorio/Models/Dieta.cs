@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Consultorio
 {
@@ -9,13 +10,18 @@ namespace Consultorio
 
         public List<Alimento> Alimentos { get; set; }
 
+        public int GetTotalCalorias()
+        {
+            return Alimentos.Sum(alimento => alimento.Calorias);
+        }
+
         public override string ToString()
         {
             string s = null;
 
-            foreach (Alimento alimento in Alimentos)
+            for (int i=0; i< Alimentos.Count; i++)
             {
-                s = alimento.ToString();
+                s += (i == Alimentos.Count - 1) ? Alimentos[i] + "." : Alimentos[i] + "; ";
             }
 
             return s;

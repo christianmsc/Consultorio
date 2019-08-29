@@ -20,6 +20,12 @@ namespace Consultorio
         public override string ToString()
         {
             string s = null;
+            s += Paciente.Nome + " - ";
+            s += DataConsulta.GetValueOrDefault();
+            s += Peso != 0.0d ? ", Peso: " + Peso : "";
+            s += PorcentagemGordura != 0.0d ? ", % de Gordura: " + PorcentagemGordura : "";
+            s += SensacaoFisica != null ? ", Sensação Física: " + SensacaoFisica : "";
+            s += Dieta != null ? "\nDieta: " + Dieta : "";
 
             return s;
         }

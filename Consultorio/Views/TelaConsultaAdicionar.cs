@@ -22,59 +22,64 @@ namespace Consultorio
 
             Console.WriteLine(" INFORMAÇÕES DA CONSULTA\n");
 
-
-            // Inserir nome
+            PacienteController pacienteController = new PacienteController();
+            ConsultaController consultaController = new ConsultaController();
+            
+            // Pesquisar por paciente
+            Paciente paciente = null;
             string nome = null;
-            while (nome == null || nome.Length == 0)
+
+            while (paciente == null)
             {
-                System.Console.Write(" Digite o nome : ");
-
-                try
+                while (nome == null || nome.Length == 0)
                 {
-                    nome = System.Console.ReadLine();
+                    System.Console.Write(" Digite o nome do paciente : ");
 
-                    if (nome.Length == 0)
+                    try
                     {
-                        mostrarErro("Insira um nome");
+                        nome = System.Console.ReadLine();
+
+                        if (nome.Length == 0)
+                        {
+                            mostrarErro("Insira um nome");
+                        }
+
+                        if(nome == "0")
+                        {
+                            return this.anterior;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        mostrarErro("Nome inválido");
                     }
                 }
-                catch (Exception)
+
+                paciente = pacienteController.Obter(nome);
+                if (paciente == null)
                 {
-                    mostrarErro("Nome inválido");
+                    Console.WriteLine(" Paciente não encontrado! ");
+                    Console.WriteLine(" Digite outro nome ou 0 para cancelar ");
+                    nome = null;
                 }
+                
             }
 
-            // Inserir e-mail
-            string email = null;
-            while (email == null || email.Length == 0)
+            // Inserir data da consulta
+            DateTime? dataConsulta = null;
+            while (dataConsulta == null)
             {
-                System.Console.Write(" Digite o e-mail : ");
-
-                try
-                {
-                    email = System.Console.ReadLine();
-
-                    if (email.Length == 0)
-                    {
-                        mostrarErro("Insira um e-mail");
-                    }
-                }
-                catch (Exception)
-                {
-                    mostrarErro("E-mail inválido");
-                }
-            }
-
-            // Inserir data de nascimento
-            DateTime? dataNascimento = null;
-            while (dataNascimento == null)
-            {
-                System.Console.Write(" Digite a data de nascimento (ex: 16/01/1992) : ");
+                System.Console.Write(" Digite a data e hoário da consulta (ex: 29/08/2019 16:00) : ");
 
                 try
                 {
                     CultureInfo cf = new CultureInfo("pt-BR");
-                    dataNascimento = System.Convert.ToDateTime(System.Console.ReadLine(), cf);
+                    dataConsulta = System.Convert.ToDateTime(System.Console.ReadLine(), cf);
+                    if (consultaController.IsConsultaJaAgendada((DateTime)dataConsulta))
+                    {
+                        mostrarErro(" Existe uma consulta agendada para este dia e horário, escolha outro ");
+                        dataConsulta = null;
+                    }
                 }
                 catch (FormatException)
                 {
@@ -82,192 +87,15 @@ namespace Consultorio
                 }
             }
 
-            // Inserir telefone residencial (opcional)
-            string telefoneResidencial = null;
-            System.Console.Write(" Digite o telefone residencial (ENTER p/ ignorar) : ");
-            telefoneResidencial = System.Console.ReadLine();
-
-            // Inserir telefone celular (opcional)
-            string telefoneCelular = null;
-            System.Console.Write(" Digite o telefone celular (ENTER p/ ignorar) : ");
-            telefoneCelular = System.Console.ReadLine();
-
-            // Inserir endereço(s)
-            System.Console.WriteLine();
-            System.Console.WriteLine(" ENDEREÇO ");
-            List<Endereco> enderecos = new List<Endereco>();
-            bool inserirEndereco = true;
-            while (inserirEndereco)
+            
+            consultaController.Adiciona(new Consulta
             {
-                System.Console.WriteLine();
-
-                // Inserir rua
-                string rua = null;
-                while (rua == null || rua.Length == 0)
-                {
-                    System.Console.Write(" Digite o nome da rua/avenida : ");
-
-                    try
-                    {
-                        rua = System.Console.ReadLine();
-
-                        if (rua.Length == 0)
-                        {
-                            mostrarErro("Insira uma rua/avenida");
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        mostrarErro("Rua/avenida inválida");
-                    }
-                }
-
-                // Inserir número
-                string numero = null;
-                while (numero == null || numero.Length == 0)
-                {
-                    System.Console.Write(" Digite o número da casa/prédio : ");
-
-                    try
-                    {
-                        numero = System.Console.ReadLine();
-
-                        if (numero.Length == 0)
-                        {
-                            mostrarErro("Insira uma número");
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        mostrarErro("Número inválido");
-                    }
-                }
-
-                // Inserir complemento (opcional)
-                string complemento = null;
-                System.Console.Write(" Digite o complemento (ENTER p/ ignorar) : ");
-                complemento = System.Console.ReadLine();
-
-                // Inserir bairro
-                string bairro = null;
-                while (bairro == null || bairro.Length == 0)
-                {
-                    System.Console.Write(" Digite o nome do bairro : ");
-
-                    try
-                    {
-                        bairro = System.Console.ReadLine();
-
-                        if (bairro.Length == 0)
-                        {
-                            mostrarErro("Insira um bairro");
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        mostrarErro("Bairro inválido");
-                    }
-                }
-
-                // Inserir cidade
-                string cidade = null;
-                while (cidade == null || cidade.Length == 0)
-                {
-                    System.Console.Write(" Digite o nome da cidade : ");
-
-                    try
-                    {
-                        cidade = System.Console.ReadLine();
-
-                        if (cidade.Length == 0)
-                        {
-                            mostrarErro("Insira uma cidade");
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        mostrarErro("Cidade inválida");
-                    }
-                }
-
-                // Inserir estado
-                string estado = null;
-                while (estado == null || estado.Length == 0)
-                {
-                    System.Console.Write(" Digite o nome do estado : ");
-
-                    try
-                    {
-                        estado = System.Console.ReadLine();
-
-                        if (estado.Length == 0)
-                        {
-                            mostrarErro("Insira um estado");
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        mostrarErro("Estado inválido");
-                    }
-                }
-
-                // Inserir cep
-                string cep = null;
-                while (cep == null || cep.Length == 0)
-                {
-                    System.Console.Write(" Digite o CEP : ");
-
-                    try
-                    {
-                        cep = System.Console.ReadLine();
-
-                        if (cep.Length == 0)
-                        {
-                            mostrarErro("Insira um CEP");
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        mostrarErro("CEP inválido");
-                    }
-                }
-
-                // Adiciona novo endereço do paciente
-                enderecos.Add(new Endereco()
-                {
-                    Rua = rua,
-                    Numero = numero,
-                    Complemento = complemento,
-                    Bairro = bairro,
-                    Cidade = cidade,
-                    Estado = estado,
-                    Cep = cep
-                });
-
-                Console.WriteLine();
-                Console.WriteLine(" - Digite 0 (zero) se deseja adicionar mais um endereço, ou");
-                Console.WriteLine(" - Digite qualquer outra tecla para confirmar cadastro");
-
-                inserirEndereco = Console.ReadLine() == "0" ? true : false;
-
-            }
+                Paciente = paciente,
+                DataConsulta = dataConsulta
+            });
 
 
-            Paciente paciente = new Paciente
-            {
-                Nome = nome,
-                Email = email,
-                TelefoneResidencial = telefoneResidencial,
-                TelefoneCelular = telefoneCelular,
-                DataNascimento = dataNascimento.GetValueOrDefault(),
-                Enderecos = enderecos
-            };
-
-            PacienteController pacienteController = new PacienteController();
-            pacienteController.Adiciona(paciente);
-
-
-            Console.WriteLine(" Paciente adicionado! ");
+            Console.WriteLine(" Consulta marcada! ");
             Console.WriteLine(" Pressione qualquer tecla para continuar...");
             Console.ReadKey();
 

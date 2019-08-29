@@ -4,15 +4,15 @@ using System.Globalization;
 
 namespace Consultorio
 {
-    class TelaAlimentoListaTodos : Tela
+    class TelaConsultaListaTodas : Tela
     {
         private Tela anterior;
         public string Nome { get; set; }
 
-        public TelaAlimentoListaTodos(Tela anterior)
+        public TelaConsultaListaTodas(Tela anterior)
         {
             this.anterior = anterior;
-            this.Nome = " Listar Todos os Alimentos ";
+            this.Nome = " Listar Todas as Consultas ";
         }
 
         public Tela Mostra()
@@ -22,13 +22,13 @@ namespace Consultorio
 
 
 
-            AlimentoController alimentoController = new AlimentoController();
+            ConsultaController consultaController = new ConsultaController();
 
-            List<Alimento> alimentos = alimentoController.Lista();
+            List<Consulta> consultas = consultaController.Lista();
 
-            if (alimentos.Count == 0)
+            if (consultas.Count == 0)
             {
-                Console.WriteLine(" Nenhum alimento cadastrado!\n");
+                Console.WriteLine(" Nenhuma consulta cadastrado!\n");
                 Console.WriteLine(" Pressione qualquer tecla para continuar...");
                 Console.ReadKey();
                 return this.anterior;
@@ -40,15 +40,15 @@ namespace Consultorio
 
                 int opcao = -1;
 
-                while (opcao < 0 || opcao > alimentos.Count)
+                while (opcao < 0 || opcao > consultas.Count)
                 {
-                    for (int i = 0; i < alimentos.Count; i++)
+                    for (int i = 0; i < consultas.Count; i++)
                     {
-                        System.Console.WriteLine((i + 1) + ". " + alimentos[i]);
+                        System.Console.WriteLine((i + 1) + ". " + consultas[i]);
                     }
 
                     System.Console.WriteLine();
-                    System.Console.WriteLine("- Digite o número do alimento que deseja remover ou");
+                    System.Console.WriteLine("- Digite o número da consulta que deseja remover ou");
                     System.Console.WriteLine("- Digite 0 para voltar .");
                     try
                     {
@@ -68,14 +68,14 @@ namespace Consultorio
 
                     if (opcao != 0)
                     {
-                        alimentoController.Remove(alimentos[opcao - 1]);
-                        alimentos.RemoveAt(opcao - 1);
+                        consultaController.Remove(consultas[opcao - 1]);
+                        consultas.RemoveAt(opcao - 1);
 
                         opcao = -1;
 
 
                         System.Console.WriteLine();
-                        System.Console.WriteLine(" Alimento Removido ");
+                        System.Console.WriteLine(" Consulta Removida ");
                         System.Console.WriteLine();
                     }
                 }

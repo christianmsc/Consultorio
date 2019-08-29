@@ -16,6 +16,11 @@ namespace Consultorio
             return Repositorio.Pacientes.ToList();
         }
 
+        public Paciente Obter(string nome)
+        {
+            return Repositorio.Pacientes.FirstOrDefault(paciente => paciente.Nome.Contains(nome));
+        }
+
         public void Remove(Paciente paciente)
         {
             Repositorio.Pacientes.Remove(paciente);

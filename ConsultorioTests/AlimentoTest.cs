@@ -8,18 +8,34 @@ namespace ConsultorioTests
         [TestMethod]
         public void TestMethod1()
         {
-            //// Arrange
-            //double beginningBalance = 11.99;
-            //double debitAmount = 4.55;
-            //double expected = 7.44;
-            //BankAccount account = new BankAccount("Mr. Bryan Walton", beginningBalance);
+            //Random rnd = new Random();
+            //string[] alimentos = new[] { "Achocolatado", "Açúcar", "Adoçante", "Arroz", "Atum", "Azeite", "Azeitona", "Batata Palha" };
 
-            //// Act
-            //account.Debit(debitAmount);
+            // Arrange
+            //Dieta dieta = new Dieta
+            //{
+            //    Alimentos = new List<Alimento>
+            //                            {
+            //                                new Alimento(){
+            //                                    Nome = "Achocolatado",
+            //                                    Grupo = GrupoAlimentoEnum.Energéticos,
+            //                                    Calorias = 100
+            //                                },
+            //                                new Alimento(){
+            //                                    Nome = "Açúcar",
+            //                                    Grupo = GrupoAlimentoEnum.Reguladores,
+            //                                    Calorias = 100
+            //                                },
+            //                                new Alimento(){
+            //                                    Nome = "Adoçante",
+            //                                    Grupo = GrupoAlimentoEnum.Construtores,
+            //                                    Calorias = 100
+            //                                }
+            //                            }
+            //};
 
-            //// Assert
-            //double actual = account.Balance;
-            //Assert.AreEqual(expected, actual, 0.001, "Account not debited correctly");
+            //int atual = dieta.GetTotalCalorias();
+            //Assert.AreEqual(300, atual, 0.001, "Account not debited correctly");
         }
     }
 }

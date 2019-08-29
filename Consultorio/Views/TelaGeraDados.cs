@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Consultorio.Enums;
+using System;
 
 namespace Consultorio
 {
@@ -22,8 +23,11 @@ namespace Consultorio
 
             Random rnd = new Random();
             string[] bairros = new[] { "Centro", "Castelo", "Floresta", "Lagoinha", "Bandeirantes" };
+            string[] alimentos = new[] { "Achocolatado", "Açúcar", "Adoçante", "Arroz", "Atum", "Azeite", "Azeitona", "Batata Palha" };
 
-            PacienteController pacienteRepositorio = new PacienteController();
+            PacienteController pacienteController = new PacienteController();
+            AlimentoController alimentoController = new AlimentoController();
+            ConsultaController consultaController = new ConsultaController();
 
             /* Pacientes */
             for (int i = 0; i < 36; i++)
@@ -48,7 +52,30 @@ namespace Consultorio
                     }
                 };
 
-                pacienteRepositorio.Adiciona(paciente);
+                pacienteController.Adiciona(paciente);
+            }
+
+            /* Alimentos */
+            for (int i = 0; i < 36; i++)
+            {
+                Alimento alimento = new Alimento();
+                alimento.DataRegistro = new DateTime(2019, rnd.Next(1, 13), rnd.Next(1, 29), rnd.Next(0, 24), rnd.Next(0, 60), rnd.Next(0, 60));
+                alimento.Nome = alimentos[rnd.Next(8)];
+                alimento.Grupo = (GrupoAlimentoEnum)rnd.Next(3);
+                alimento.Calorias = rnd.Next(50, 500);
+
+                alimentoController.Adiciona(alimento);
+            }
+
+            /* Consultas */
+            for (int i = 0; i < 36; i++)
+            {
+                Consulta consulta = new Consulta();
+                consulta.DataRegistro = new DateTime(2018, rnd.Next(1, 13), rnd.Next(1, 29), rnd.Next(0, 24), rnd.Next(0, 60), rnd.Next(0, 60));
+                consulta.Paciente = pacienteController.Lista()[i];
+                consulta.DataConsulta = new DateTime(2019, rnd.Next(1, 13), rnd.Next(1, 29), rnd.Next(0, 24), rnd.Next(0, 60), rnd.Next(0, 60));
+
+                consultaController.Adiciona(consulta);
             }
 
 

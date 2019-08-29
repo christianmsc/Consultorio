@@ -18,8 +18,12 @@
             System.Console.WriteLine();
 
             System.Console.WriteLine(" Limpando dados ... ");
+
+            Repositorio.Consultas.RemoveAll(consulta => true);
+            Repositorio.Pacientes.RemoveAll(paciente => true);
+            Repositorio.Alimentos.RemoveAll(alimento => true);
             
-            Repositorio.Pacientes.RemoveAll(paicente => true);
+            
 
             System.Console.WriteLine(" Dados limpos! ");
             System.Console.WriteLine();

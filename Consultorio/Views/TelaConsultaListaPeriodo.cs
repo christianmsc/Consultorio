@@ -4,15 +4,15 @@ using System.Globalization;
 
 namespace Consultorio
 {
-    class TelaPacienteListaPeriodo : Tela
+    class TelaConsultaListaPeriodo : Tela
     {
         private Tela anterior;
         public string Nome { get; set; }
 
-        public TelaPacienteListaPeriodo(Tela anterior)
+        public TelaConsultaListaPeriodo(Tela anterior)
         {
             this.anterior = anterior;
-            this.Nome = " Pacientes por Período (Data de Cadastro) ";
+            this.Nome = " Consultas por Período (Data da Consulta) ";
         }
 
         public Tela Mostra()
@@ -54,21 +54,21 @@ namespace Consultorio
                 }
             }
 
-            PacienteController pacienteController = new PacienteController();
+            ConsultaController consultaController = new ConsultaController();
 
-            List<Paciente> pacientes = pacienteController.ListaPorPeriodo(dataInicial, dataFinal);
+            List<Consulta> consultas = consultaController.ListaPorPeriodo(dataInicial, dataFinal);
 
             int opcao = -1;
 
-            while (opcao < 0 || opcao > pacientes.Count)
+            while (opcao < 0 || opcao > consultas.Count)
             {
-                for (int i = 0; i < pacientes.Count; i++)
+                for (int i = 0; i < consultas.Count; i++)
                 {
-                    System.Console.WriteLine((i + 1) + ". " + pacientes[i]);
+                    System.Console.WriteLine((i + 1) + ". " + consultas[i]);
                 }
 
                 System.Console.WriteLine();
-                System.Console.WriteLine(" Digite o número do paciente que deseja remover .");
+                System.Console.WriteLine(" Digite o número da consulta que deseja remover .");
                 System.Console.WriteLine(" Digite 0 para voltar .");
                 try
                 {
@@ -88,14 +88,14 @@ namespace Consultorio
 
                 if (opcao != 0)
                 {
-                    pacienteController.Remove(pacientes[opcao - 1]);
-                    pacientes.RemoveAt(opcao - 1);
+                    consultaController.Remove(consultas[opcao - 1]);
+                    consultas.RemoveAt(opcao - 1);
 
                     opcao = -1;
 
 
                     System.Console.WriteLine();
-                    System.Console.WriteLine(" Paciente Removido ");
+                    System.Console.WriteLine(" Consulta Removida ");
                     System.Console.WriteLine();
                 }
             }
