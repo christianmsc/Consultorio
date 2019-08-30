@@ -2,7 +2,7 @@
 
 namespace Consultorio
 {
-    class Endereco : EntidadeBase
+    public class Endereco : EntidadeBase
     {
         public string Rua { get; set; }
 

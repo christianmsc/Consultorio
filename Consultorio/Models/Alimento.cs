@@ -3,7 +3,7 @@ using System;
 
 namespace Consultorio
 {
-    class Alimento : EntidadeBase
+    public class Alimento : EntidadeBase
     {
         public string Nome { get; set; }
 

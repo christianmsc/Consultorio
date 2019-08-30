@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Consultorio
 {
-    class Dieta : EntidadeBase
+    public class Dieta : EntidadeBase
     {
         public Consulta Consulta { get; set; }
 

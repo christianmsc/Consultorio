@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace Consultorio
 {
-    class PacienteController
+    public class PacienteController
     {
 
         public void Adiciona(Paciente paciente)

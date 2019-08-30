@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Consultorio.Enums
 {
-    enum GrupoAlimentoEnum
+    public enum GrupoAlimentoEnum
     {
         // Constituídos pelos carboidratos
         Energéticos = 0,

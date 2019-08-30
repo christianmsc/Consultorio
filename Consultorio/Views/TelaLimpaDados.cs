@@ -1,4 +1,6 @@
-﻿namespace Consultorio
+﻿using System;
+
+namespace Consultorio
 {
     class TelaLimpaDados : Tela
     {
@@ -14,10 +16,10 @@
 
         public Tela Mostra()
         {
-            System.Console.WriteLine(" >>> " + this.Nome + " <<<");
-            System.Console.WriteLine();
+            Console.WriteLine(" >>> " + this.Nome + " <<<");
+            Console.WriteLine();
 
-            System.Console.WriteLine(" Limpando dados ... ");
+            Console.WriteLine(" Limpando dados ... ");
 
             Repositorio.Consultas.RemoveAll(consulta => true);
             Repositorio.Pacientes.RemoveAll(paciente => true);
@@ -25,8 +27,9 @@
             
             
 
-            System.Console.WriteLine(" Dados limpos! ");
-            System.Console.WriteLine();
+            Console.WriteLine(" Dados limpos! ");
+            Console.WriteLine(" Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
 
             return this.anterior;
         }

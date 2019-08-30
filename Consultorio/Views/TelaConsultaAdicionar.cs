@@ -91,7 +91,7 @@ namespace Consultorio
             consultaController.Adiciona(new Consulta
             {
                 Paciente = paciente,
-                DataConsulta = dataConsulta
+                DataConsulta = (DateTime)dataConsulta
             });
 
 

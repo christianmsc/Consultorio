@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Consultorio
 {
-    class Paciente : EntidadeBase
+    public class Paciente : EntidadeBase
     {
         public string Nome { get; set; }
 

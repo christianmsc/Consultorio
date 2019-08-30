@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace Consultorio
 {
-    class AlimentoController
+    public class AlimentoController
     {
 
         public void Adiciona(Alimento alimento)

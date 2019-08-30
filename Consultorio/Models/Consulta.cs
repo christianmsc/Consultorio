@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Consultorio
 {
-    class Consulta : EntidadeBase
+    public class Consulta : EntidadeBase
     {
         public Paciente Paciente { get; set; }
 
-        public DateTime? DataConsulta { get; set; }
+        public DateTime DataConsulta { get; set; }
 
         public double Peso { get; set; }
 
@@ -21,7 +21,7 @@ namespace Consultorio
         {
             string s = null;
             s += Paciente.Nome + " - ";
-            s += DataConsulta.GetValueOrDefault();
+            s += DataConsulta.ToString("dd/MM/yyyy hh:mm");
             s += Peso != 0.0d ? ", Peso: " + Peso : "";
             s += PorcentagemGordura != 0.0d ? ", % de Gordura: " + PorcentagemGordura : "";
             s += SensacaoFisica != null ? ", Sensação Física: " + SensacaoFisica : "";

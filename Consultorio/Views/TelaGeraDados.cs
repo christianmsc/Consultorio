@@ -1,5 +1,6 @@
 ﻿using Consultorio.Enums;
 using System;
+using System.Globalization;
 
 namespace Consultorio
 {
@@ -11,17 +12,36 @@ namespace Consultorio
         public TelaGeraDados(Tela anterior)
         {
             this.anterior = anterior;
-            this.Nome = " Gera Dados ";
+            this.Nome = " Gerar Dados ";
         }
 
         public Tela Mostra()
         {
-            System.Console.WriteLine(" >>> " + this.Nome + " <<<");
-            System.Console.WriteLine();
+            Console.WriteLine(" >>> " + this.Nome + " <<<");
+            Console.WriteLine();
 
-            System.Console.WriteLine(" Gerando dados ... ");
+            int? qtdDados = null;
+            while (qtdDados == null)
+            {
+                try
+                {
+                    Console.Write(" Digite a quantidade de dados desejada para cada entidade : ");
+                    qtdDados = Int32.Parse(Console.ReadLine());
+                    if (qtdDados == null)
+                    {
+                        Console.WriteLine(" Digite um valor ");
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine(" Valor inválido ");
+                }
+            }
+
+            Console.WriteLine(" Gerando dados ... ");
 
             Random rnd = new Random();
+            CultureInfo cf = new CultureInfo("pt-BR");
             string[] bairros = new[] { "Centro", "Castelo", "Floresta", "Lagoinha", "Bandeirantes" };
             string[] alimentos = new[] { "Achocolatado", "Açúcar", "Adoçante", "Arroz", "Atum", "Azeite", "Azeitona", "Batata Palha" };
 
@@ -30,11 +50,11 @@ namespace Consultorio
             ConsultaController consultaController = new ConsultaController();
 
             /* Pacientes */
-            for (int i = 0; i < 36; i++)
+            for (int i = 0; i < qtdDados; i++)
             {
                 Paciente paciente = new Paciente();
                 paciente.DataRegistro = new DateTime(2019, rnd.Next(1, 13), rnd.Next(1, 29), rnd.Next(0, 24), rnd.Next(0, 60), rnd.Next(0, 60));
-                paciente.Nome = "Paciente " + (i+1);
+                paciente.Nome = "Paciente " + (i + 1);
                 paciente.Email = "paciente" + (i + 1) + "@email.com";
                 paciente.TelefoneResidencial = "31" + rnd.Next(30000000, 39999999);
                 paciente.TelefoneCelular = "31" + rnd.Next(900000000, 999999999);
@@ -56,7 +76,7 @@ namespace Consultorio
             }
 
             /* Alimentos */
-            for (int i = 0; i < 36; i++)
+            for (int i = 0; i < qtdDados; i++)
             {
                 Alimento alimento = new Alimento();
                 alimento.DataRegistro = new DateTime(2019, rnd.Next(1, 13), rnd.Next(1, 29), rnd.Next(0, 24), rnd.Next(0, 60), rnd.Next(0, 60));
@@ -68,19 +88,21 @@ namespace Consultorio
             }
 
             /* Consultas */
-            for (int i = 0; i < 36; i++)
+            for (int i = 0; i < qtdDados; i++)
             {
                 Consulta consulta = new Consulta();
                 consulta.DataRegistro = new DateTime(2018, rnd.Next(1, 13), rnd.Next(1, 29), rnd.Next(0, 24), rnd.Next(0, 60), rnd.Next(0, 60));
                 consulta.Paciente = pacienteController.Lista()[i];
-                consulta.DataConsulta = new DateTime(2019, rnd.Next(1, 13), rnd.Next(1, 29), rnd.Next(0, 24), rnd.Next(0, 60), rnd.Next(0, 60));
+                consulta.DataConsulta = Convert.ToDateTime($"{rnd.Next(1, 29)}/{rnd.Next(1, 13)}/{2019} {rnd.Next(0, 24)}:{rnd.Next(0, 60)}", cf);
+                consulta.Dieta = new Dieta() { Alimentos = alimentoController.Lista().GetRange(0,3)};
 
                 consultaController.Adiciona(consulta);
             }
 
 
-            System.Console.WriteLine(" Dados gerados com sucesso! ");
-            System.Console.WriteLine();
+            Console.WriteLine(" Dados gerados com sucesso! ");
+            Console.WriteLine(" Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
 
             return this.anterior;
         }
